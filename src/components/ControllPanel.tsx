@@ -27,7 +27,10 @@ const ControllPanel = () => {
   const dispatch = useAppDispatch();
 
   const [taskInput, setTaskInput] = useState<string>("");
-  const clickHandler = () => dispatch(newTodo({ id: Date.now(), title: taskInput, isCompleted: false }));
+  const clickHandler = () => {
+    dispatch(newTodo({ id: Date.now(), title: taskInput, isCompleted: false }));
+    setTaskInput("");
+  };
   return (
     <StyledPanel>
       <div>
