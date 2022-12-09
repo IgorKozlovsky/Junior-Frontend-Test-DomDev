@@ -8,6 +8,7 @@ const StyledContainer = styled.div`
   border-bottom: 5px solid ${(props) => props.theme.colors.highlight};
 `;
 export { StyledContainer };
+
 const StyledHeader = styled(StyledContainer)`
   text-align: center;
   padding: 2px 0px;

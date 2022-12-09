@@ -1,4 +1,7 @@
+import { useState } from "react";
 import styled from "styled-components";
+import { useAppDispatch } from "../hook/hooks";
+import { newTodo } from "../redux/slices/todoSlice";
 import Button from "./Button";
 import { StyledContainer } from "./Header";
 import Input from "./Input";
@@ -21,14 +24,21 @@ const StyledPanel = styled(StyledContainer)`
 `;
 
 const ControllPanel = () => {
+  const dispatch = useAppDispatch();
+
+  const [taskInput, setTaskInput] = useState<string>("");
+  const clickHandler = () => {
+    dispatch(newTodo({ id: Date.now(), title: taskInput, isCompleted: false }));
+    setTaskInput("");
+  };
   return (
     <StyledPanel>
       <div>
         <label>
           Enter a task name:
-          <Input />
+          <Input value={taskInput} onChange={(e) => setTaskInput(e.target.value)} />
         </label>
-        <Button>New todo</Button>
+        <Button onClick={clickHandler}>New todo</Button>
       </div>
     </StyledPanel>
   );

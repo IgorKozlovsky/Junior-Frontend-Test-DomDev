@@ -3,6 +3,8 @@ import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import Button from "./Button";
 import Input from "./Input";
+import { ITodo } from "../types/types";
+import { useState } from "react";
 
 const StyledItem = styled.li`
   display: flex;
@@ -28,18 +30,37 @@ const StyledButtonWrapper = styled.div`
     width: 80px;
   }
 `;
+interface TodoItemProps {
+  todo: ITodo;
+  onChecked: (id: number) => void;
+  onDelete: (id: number) => void;
+  onUpdate: (id: number, title: string) => void;
+}
 
-const TodoItem = () => {
+const TodoItem = ({ todo, onDelete, onChecked, onUpdate }: TodoItemProps) => {
+  const [value, setValue] = useState<string>(todo.title);
+  const [isNowUpdating, setIsNowUpdating] = useState<boolean>(false);
+
   return (
     <StyledItem>
-      <Input type="checkbox" />
-      <Input />
+      <Input type="checkbox" checked={todo.isCompleted} onChange={() => onChecked(todo.id)} />
+      {isNowUpdating ? (
+        <Input value={value} onChange={(e) => setValue(e.target.value)} />
+      ) : (
+        <p style={{ textDecoration: `${todo.isCompleted ? "line-through" : "none"}` }}>{value}</p>
+      )}
       <StyledButtonWrapper>
-        <Button datatype="success">
+        <Button
+          datatype="success"
+          onClick={() => {
+            if (isNowUpdating) onUpdate(todo.id, value);
+            setIsNowUpdating(!isNowUpdating);
+          }}
+        >
           <FontAwesomeIcon icon={faPenToSquare} />
-          Edit
+          {isNowUpdating ? "Save" : "Edit"}
         </Button>
-        <Button datatype="error">
+        <Button datatype="error" onClick={() => onDelete(todo.id)}>
           <FontAwesomeIcon icon={faTrash} />
         </Button>
       </StyledButtonWrapper>

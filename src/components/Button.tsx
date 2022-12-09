@@ -37,6 +37,7 @@ const StyledSuccessButton = styled(StyledButton)`
 interface ButtonProps {
   children: React.ReactNode;
   datatype?: "error" | "success";
+  onClick?: () => void;
 }
 
 const Button = (props: ButtonProps) => {
@@ -46,3 +47,4 @@ const Button = (props: ButtonProps) => {
 };
 
 export default Button;
+

@@ -18,6 +18,9 @@ const StyledInput = styled.input.attrs((props) => ({
 
 interface InputProps {
   type?: string;
+  value?: string;
+  checked?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = (props: InputProps) => {
