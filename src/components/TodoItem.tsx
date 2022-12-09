@@ -30,7 +30,6 @@ const StyledButtonWrapper = styled.div`
     width: 80px;
   }
 `;
-// (props.checked ? "line-through" : "")
 interface TodoItemProps {
   todo: ITodo;
   onChecked: (id: number) => void;

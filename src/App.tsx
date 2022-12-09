@@ -1,7 +1,10 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import ControllPanel from "./components/ControllPanel";
 import Header from "./components/Header";
 import TodoList from "./components/TodoList";
+import { useAppDispatch } from "./hook/hooks";
+import { initTodo } from "./redux/slices/todoSlice";
 
 const AppWrapper = styled.div`
   max-width: 1440px;
@@ -11,6 +14,11 @@ const AppWrapper = styled.div`
 `;
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(initTodo(JSON.parse(localStorage.getItem("todos") || "{}")));
+  }, []);
   return (
     <AppWrapper>
       <Header />
